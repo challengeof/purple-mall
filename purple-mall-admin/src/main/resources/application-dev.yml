@@ -1,0 +1,69 @@
+server:
+  port: 1020
+spring:
+  application:
+    name: purple_mall_admin
+  jackson:
+      default-property-inclusion: non_null
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/purple_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: Hikari
+      auto-commit: false
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    timeout: 300d
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: -1d
+        max-idle: 10
+        min-idle: 0
+      shutdown-timeout: 100d
+logging:
+  level:
+    root : info
+    io:
+      ebean:
+        SQL: trace
+        TXN: trace
+        SUM: trace
+        cache:
+          QUERY: trace
+          BEAN: trace
+          COLL: trace
+          NATKEY: trace
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine
+      keyConvertor: fastjson
+      limit: 100
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      uri: redis://127.0.0.1:6379
+
+purple:
+  auth:
+    token-secret: /1M4WYpnZY/14b7PrB6aZpWMoxJxqM+IfwJAZ0LS15N6p0DMqB4cn6/eSDNcuhT0KSN9IbzB+NRDb5MwedBlWQ==
+    token-validity-in-seconds: 864000000
+    header: Authorization
+    route-path: /auth
