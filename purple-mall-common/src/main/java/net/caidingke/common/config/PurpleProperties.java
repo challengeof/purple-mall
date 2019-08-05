@@ -1,5 +1,8 @@
 package net.caidingke.common.config;
 
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,8 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PurpleProperties {
 
+    @Getter
     private final Auth auth = new Auth();
+    @Getter
+    private final Es es = new Es();
 
+    @Getter
+    @Setter
     public static class Auth {
 
         private String tokenSecret;
@@ -19,42 +27,20 @@ public class PurpleProperties {
         private String header;
         private String routePath;
 
-        public String getTokenSecret() {
-            return tokenSecret;
-        }
-
-        public void setTokenSecret(String tokenSecret) {
-            this.tokenSecret = tokenSecret;
-        }
-
-        public long getTokenValidityInSeconds() {
-            return tokenValidityInSeconds;
-        }
-
-        public void setTokenValidityInSeconds(long tokenValidityInSeconds) {
-            this.tokenValidityInSeconds = tokenValidityInSeconds;
-        }
-
-        public String getHeader() {
-            return header;
-        }
-
-        public void setHeader(String header) {
-            this.header = header;
-        }
-
-        public String getRoutePath() {
-            return routePath;
-        }
-
-        public void setRoutePath(String routePath) {
-            this.routePath = routePath;
-        }
     }
 
+    @Getter
+    @Setter
+    public static class Es {
 
-    public Auth getAuth() {
-        return auth;
+        private List<String> nodes;
+        private String schema;
+        private Integer maxConnectTotal;
+        private Integer maxConnectPerRoute;
+        private Integer connectionRequestTimeoutMillis;
+        private Integer socketTimeoutMillis;
+        private Integer connectTimeoutMillis;
+        private String clusterName;
     }
 
 }

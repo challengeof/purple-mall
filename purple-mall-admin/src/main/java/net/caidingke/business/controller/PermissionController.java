@@ -27,23 +27,23 @@ public class PermissionController extends BasicController {
         this.permissionService = permissionService;
     }
 
-    @GetMapping(value = "/permissions")
+    @GetMapping("/permissions")
     public Result<List<Permission>> permissions() {
         return ok(permissionService.findPermissions());
     }
 
-    @PostMapping(value = "/permission")
+    @PostMapping("/permission")
     public Result permission(PermissionRequest request) {
         permissionService.permission(request);
         return ok();
     }
 
-    @GetMapping(value = "/permission/{id}")
+    @GetMapping("/permission/{id}")
     public Result<Permission> getUserPermission(@PathVariable Long id) {
         return ok(permissionService.findPermissionById(id).orElseThrow(NotFoundException::new));
     }
 
-    @PutMapping(value = "/permission/{id}")
+    @PutMapping("/permission/{id}")
     public Result modifyPermission(
             @PathVariable Long id, PermissionRequest request) {
         permissionService.modifyPermission(id, request);

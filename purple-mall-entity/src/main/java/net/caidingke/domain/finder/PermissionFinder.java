@@ -17,6 +17,6 @@ public class PermissionFinder extends Finder<Long,Permission> {
    * Start a new typed query.
    */
   public QPermission where() {
-    return new QPermission();
+    return new QPermission(db());
   }
 }

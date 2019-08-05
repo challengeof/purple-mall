@@ -67,3 +67,21 @@ purple:
     token-validity-in-seconds: 864000000
     header: Authorization
     route-path: /auth
+dubbo:
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    client: curator
+  protocol:
+    name: dubbo
+    port: -1
+    serialization: kryo
+  scan:
+    base-packages: net.caidingke
+  consumer:
+    retries: 0
+    timeout: 5000
+rocketmq:
+  nameServer: localhost:9876
+  producer:
+    send-message-timeout: 5000
+    group: my-group

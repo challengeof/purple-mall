@@ -1,6 +1,7 @@
 package net.caidingke.domain.base;
 
 import io.ebean.Model;
+import io.ebean.annotation.WhenCreated;
 import java.io.Serializable;
 import java.util.Map;
 import javax.persistence.GeneratedValue;
@@ -19,9 +20,17 @@ import net.caidingke.common.mapper.JsonMapper;
 public class BaseModel extends Model implements Serializable {
 
     private static final long serialVersionUID = -1322034841828005834L;
+    /**
+     * 主键id
+     */
     @Id
     @GeneratedValue
     private Long id;
+    /**
+     * 创建时间
+     */
+    @WhenCreated
+    private long createTime;
 
     @SuppressWarnings("unchecked")
     public Map<String, Object> toMap() {

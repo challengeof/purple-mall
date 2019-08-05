@@ -5,7 +5,7 @@ package net.caidingke.business.exception;
  *
  * @author bowen
  */
-public class NotFoundException extends BusinessException {
+public class NotFoundException extends BizException {
 
     private static final long serialVersionUID = 8781855461307205973L;
 

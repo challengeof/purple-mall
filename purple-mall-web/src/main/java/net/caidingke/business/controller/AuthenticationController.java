@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import net.caidingke.base.BasicController;
 import net.caidingke.business.exception.AuthException;
+import net.caidingke.business.exception.ErrorCode;
 import net.caidingke.common.config.PurpleProperties;
 import net.caidingke.common.result.Result;
 import net.caidingke.security.JwtUser;
@@ -77,10 +78,10 @@ public class AuthenticationController extends BasicController {
 
         if (tokenProvider.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
             String refreshedToken = tokenProvider.refreshToken(token);
+            stringRedisTemplate.opsForValue().set(TokenProvider.generateKey(username), refreshedToken);
             return ok(ImmutableMap.of("token", refreshedToken));
-        } else {
-            return ok();
         }
+        return errorThrow(ErrorCode._10007);
     }
 
     private void authenticate(String username, String password) {

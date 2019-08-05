@@ -3,7 +3,7 @@ package net.caidingke.business.controller;
 import javax.servlet.http.HttpServletRequest;
 import net.caidingke.base.BasicController;
 import net.caidingke.business.controller.request.CustomerRequest;
-import net.caidingke.business.exception.BusinessException;
+import net.caidingke.business.exception.BizException;
 import net.caidingke.business.exception.ErrorCode;
 import net.caidingke.business.service.CustomerService;
 import net.caidingke.common.result.Result;
@@ -18,12 +18,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author bowen
  */
 @RestController
+@RequestMapping("/customer/")
 public class CustomerController extends BasicController {
 
     private final CustomerService customerService;
@@ -62,13 +64,21 @@ public class CustomerController extends BasicController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, oldPassword));
             if (!authentication.isAuthenticated()) {
-                throw new BusinessException(ErrorCode._10005);
+                throw new BizException(ErrorCode._10005);
             }
 
         } catch (BadCredentialsException e) {
-            throw new BusinessException(ErrorCode._10005);
+            throw new BizException(ErrorCode._10005);
         }
         customerService.updatePassword(id, username, password);
         return ok();
     }
+
+    @GetMapping("/test")
+    public Result testTransactional() {
+        customerService.testTransactional();
+
+        return ok();
+    }
+
 }

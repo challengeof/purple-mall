@@ -1,5 +1,6 @@
 package net.caidingke.common.result;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import lombok.Getter;
 
@@ -29,5 +30,10 @@ public class Response implements Serializable {
     public Response setMessage(String message) {
         this.message = message;
         return this;
+    }
+
+    @JsonIgnore
+    public boolean isOk() {
+        return this.status == OK;
     }
 }

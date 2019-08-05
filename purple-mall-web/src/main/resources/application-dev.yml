@@ -1,8 +1,8 @@
 server:
-  port: 1021
+  port: 1022
 spring:
   application:
-    name: purple_mall_admin
+    name: purple_mall_web
   jackson:
       default-property-inclusion: non_null
   datasource:
@@ -32,6 +32,8 @@ spring:
         max-idle: 10
         min-idle: 0
       shutdown-timeout: 100d
+    cluster:
+      nodes:
 logging:
   level:
     root : info
@@ -67,3 +69,12 @@ purple:
     token-validity-in-seconds: 864000000
     header: Authorization
     route-path: /auth
+  es:
+    nodes: localhost:9300
+    schema: http
+    max-connect-total: 50
+    max-connect-per-route: 10
+    connection-request-timeout-millis: 500
+    socket-timeout-millis: 30000
+    connect-timeout-millis: 1000
+    cluster-name: my-application

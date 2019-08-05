@@ -1,5 +1,10 @@
 ebean:
   test:
+    useDocker: false
     platform: mysql #, h2, postgres, mysql, oracle, sqlserver
     ddlMode: dropCreate # none | dropCreate | create | migration | createOnly | migrationDropCreate
-    dbName: myapp
+    dbName: purple_mall
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/purple_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver: com.mysql.jdbc.Driver

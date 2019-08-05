@@ -2,12 +2,12 @@ package net.caidingke.base;
 
 import io.ebean.PagedList;
 import java.util.List;
+import net.caidingke.business.exception.BizException;
+import net.caidingke.business.exception.ErrorCode;
 import net.caidingke.common.Constants;
 import net.caidingke.common.result.Result;
 import net.caidingke.common.result.ResultGenerator;
 import net.caidingke.common.result.ResultPage;
-import net.caidingke.exception.BusinessException;
-import net.caidingke.exception.ErrorCode;
 
 /**
  * @author bowen.
@@ -61,14 +61,18 @@ public class BasicController {
     }
 
     protected static Result<String> errorThrow() {
-        throw new BusinessException(ErrorCode.ERROR);
+        throw new BizException(ErrorCode.ERROR);
     }
 
     protected static <T> Result<T> errorThrow(String msg) {
-        throw new BusinessException(msg, Constants.ERROR_CODE);
+        throw new BizException(msg, Constants.ERROR_CODE);
     }
 
     protected static <T> Result<T> errorThrow(int errorCode, String msg) {
-        throw new BusinessException(msg, errorCode);
+        throw new BizException(msg, errorCode);
+    }
+
+    protected static <T> Result<T> errorThrow(ErrorCode errorCode) {
+        throw new BizException(errorCode.getMsg(), errorCode.getCode());
     }
 }

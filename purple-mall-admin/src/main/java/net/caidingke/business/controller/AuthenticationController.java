@@ -4,14 +4,13 @@ import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
-import net.caidingke.business.exception.AuthException;
 import net.caidingke.base.BasicController;
+import net.caidingke.business.exception.AuthException;
 import net.caidingke.common.config.PurpleProperties;
 import net.caidingke.common.result.Result;
 import net.caidingke.security.JwtUser;
 import net.caidingke.utils.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -78,10 +78,21 @@ public class AuthenticationController extends BasicController {
 
         if (tokenProvider.canTokenBeRefreshed(token, user.getLastPasswordResetDate())) {
             String refreshedToken = tokenProvider.refreshToken(token);
+            stringRedisTemplate.opsForValue()
+                    .set(TokenProvider.generateKey(username), refreshedToken);
             return ok(ImmutableMap.of("token", refreshedToken));
         } else {
-            return ok();
+            return errorThrow();
         }
+    }
+
+    @PostMapping("/logout")
+    public Result logout(HttpServletRequest request) {
+        String authToken = request.getHeader(purpleProperties.getAuth().getHeader());
+        final String token = authToken.substring(7);
+        String username = tokenProvider.getUsernameFromToken(token);
+        stringRedisTemplate.delete(TokenProvider.generateKey(username));
+        return ok();
     }
 
     private void authenticate(String username, String password) {

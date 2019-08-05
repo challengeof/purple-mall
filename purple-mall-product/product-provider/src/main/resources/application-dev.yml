@@ -1,0 +1,74 @@
+spring:
+  application:
+    name: purple_mall_product_provider
+  jackson:
+      default-property-inclusion: non_null
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/purple_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: Hikari
+      auto-commit: false
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    timeout: 300d
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: -1d
+        max-idle: 10
+        min-idle: 0
+      shutdown-timeout: 100d
+#logging:
+#  level:
+#    root : info
+#    io:
+#      ebean:
+#        SQL: trace
+#        TXN: trace
+#        SUM: trace
+#        cache:
+#          QUERY: trace
+#          BEAN: trace
+#          COLL: trace
+#          NATKEY: trace
+jetcache:
+  statIntervalMinutes: 15
+  areaInCacheName: false
+  local:
+    default:
+      type: caffeine
+      keyConvertor: fastjson
+      limit: 100
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      uri: redis://127.0.0.1:6379
+dubbo:
+  registry:
+    address: zookeeper://127.0.0.1:2181
+    client: curator
+  protocol:
+    name: dubbo
+    port: -1
+    serialization: kryo
+  scan:
+    base-packages: net.caidingke
+  provider:
+    timeout: 5000
+  application:
+    logger: slf4j

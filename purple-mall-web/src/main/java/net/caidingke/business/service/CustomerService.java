@@ -5,11 +5,12 @@ import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.Cached;
 import com.google.common.base.Strings;
 import io.ebean.annotation.Transactional;
+import net.caidingke.aop.cache.RDSCache;
 import net.caidingke.business.controller.request.CustomerRequest;
-import net.caidingke.business.exception.BusinessException;
+import net.caidingke.business.exception.BizException;
 import net.caidingke.business.exception.ErrorCode;
-import net.caidingke.cache.RDSCache;
 import net.caidingke.common.mapper.BeanUtils;
+import net.caidingke.domain.Book;
 import net.caidingke.domain.Customer;
 import net.caidingke.utils.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +47,10 @@ public class CustomerService {
     public Customer register(CustomerRequest request) {
         Customer exists = findByUsername(Strings.nullToEmpty(request.getUsername().trim()));
         if (exists != null) {
-            throw new BusinessException(ErrorCode._10003);
+            throw new BizException(ErrorCode._10003);
         }
         Customer customer = BeanUtils.convert(request, Customer.class);
         customer.setPassword(passwordEncoder.encode(request.getPassword()));
-        customer.setRegistered(System.currentTimeMillis());
         customer.insert();
         return customer;
     }
@@ -64,4 +64,18 @@ public class CustomerService {
         redisTemplate.delete(TokenProvider.generateKey(customer.getUsername()));
     }
 
+    @org.springframework.transaction.annotation.Transactional
+    public void testTransactional() {
+        Book book = new Book();
+        book.setName("追风筝的孩子");
+        book.insert();
+        test();
+    }
+
+    private void test() {
+        Book book = new Book();
+        book.setName("算法");
+        book.save();
+        throw new RuntimeException();
+    }
 }

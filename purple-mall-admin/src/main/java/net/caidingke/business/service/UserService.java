@@ -10,7 +10,7 @@ import java.util.List;
 import net.caidingke.business.controller.request.UserRequest;
 import net.caidingke.business.exception.BusinessException;
 import net.caidingke.business.exception.ErrorCode;
-import net.caidingke.cache.RDSCache;
+import net.caidingke.aop.cache.RDSCache;
 import net.caidingke.common.mapper.BeanUtils;
 import net.caidingke.domain.User;
 import net.caidingke.utils.TokenProvider;
@@ -56,7 +56,6 @@ public class UserService {
         }
         User user = BeanUtils.convert(request, User.class);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRegistered(System.currentTimeMillis());
         user.insert();
         return user;
     }
@@ -72,6 +71,7 @@ public class UserService {
 
     public User findByEmail(String email) {
         this.testThis();
+        User.find.query().where();
         return User.find.where().email.eq(email).findOne();
     }
 

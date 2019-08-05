@@ -9,11 +9,8 @@ import lombok.Data;
 public class PermissionVo {
 
     private Long id;
-
     private String name;
-
     private String desc;
-
     private String displayName;
 
 }

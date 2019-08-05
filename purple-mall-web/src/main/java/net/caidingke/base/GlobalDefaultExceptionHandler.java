@@ -2,7 +2,7 @@ package net.caidingke.base;
 
 import static net.caidingke.common.result.ResultGenerator.error;
 
-import net.caidingke.business.exception.BusinessException;
+import net.caidingke.business.exception.BizException;
 import net.caidingke.business.exception.ErrorCode;
 import net.caidingke.common.result.Result;
 import org.slf4j.Logger;
@@ -26,8 +26,8 @@ public class GlobalDefaultExceptionHandler {
             error(ErrorCode.ERROR.getCode(), ErrorCode.ERROR.getMsg());
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ExceptionHandler(BusinessException.class)
-    public Result handlerBusinessException(BusinessException exception) {
+    @ExceptionHandler(BizException.class)
+    public Result handlerBusinessException(BizException exception) {
         LOGGER.error(exception.getMsg(), exception);
         return error(exception.getCode(), exception.getMsg());
     }

@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenProvider implements Serializable, InitializingBean {
 
-    private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
     private static final long serialVersionUID = -61900740052154300L;
     private final StringRedisTemplate stringRedisTemplate;

@@ -3,6 +3,7 @@ package net.caidingke.config;
 import io.ebean.Database;
 import io.ebean.DatabaseFactory;
 import io.ebean.config.DatabaseConfig;
+import io.ebean.spring.txn.SpringJdbcTransactionManager;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,7 @@ public class EbeanConfig {
     public Database ebeanServer() {
         DatabaseConfig config = new DatabaseConfig();
         config.setDataSource(dataSource);
+        config.setExternalTransactionManager(new SpringJdbcTransactionManager());
         config.loadFromProperties();
         return DatabaseFactory.create(config);
     }

@@ -8,6 +8,7 @@ import net.caidingke.business.exception.ErrorCode;
 import net.caidingke.business.service.UserService;
 import net.caidingke.common.result.Result;
 import net.caidingke.domain.User;
+import net.caidingke.profile.CurrentUser;
 import net.caidingke.utils.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -49,6 +50,11 @@ public class UserController extends BasicController {
     @PostMapping("/register")
     public Result<User> register(UserRequest userRequest) {
         User user = userService.register(userRequest);
+        return ok(user);
+    }
+
+    @GetMapping("/info")
+    public Result<User> me(@CurrentUser User user) {
         return ok(user);
     }
 

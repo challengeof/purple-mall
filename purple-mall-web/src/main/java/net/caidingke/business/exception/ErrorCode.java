@@ -18,6 +18,8 @@ public enum ErrorCode {
     _10003(10003, "用户名已注册"),
     _10004(10004, "找不到"),
     _10005(10005, "原密码不匹配"),
+    _10006(10006, "请勿重复操作，请稍候。"),
+    _10007(10007,"刷新失败"),
     ;
     private final int code;
     private final String msg;

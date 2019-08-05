@@ -10,6 +10,7 @@ import net.caidingke.domain.Role;
 import net.caidingke.domain.User;
 import net.caidingke.profile.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,12 +31,12 @@ public class RoleController extends BasicController {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "/roles")
+    @GetMapping("/roles")
     public Result<List<Role>> adminRoles(@CurrentUser User user) {
         return ok(roleService.getRoles());
     }
 
-    @PostMapping(value = "/role")
+    @PostMapping("/role")
     public Result create(RoleRequest roleRequst) {
         roleService.create(roleRequst);
         return ok();
@@ -46,16 +47,17 @@ public class RoleController extends BasicController {
         return ok(roleService.findById(id).orElseThrow(NotFoundException::new));
     }
 
-    @PutMapping(value = "/role/{id}")
+    @PutMapping("/role/{id}")
     public Result modifyRole(@PathVariable Long id, String displayName, String name) {
         roleService.updateRole(id, displayName, name);
         return ok();
     }
 
-    @PutMapping(value = "/role/permission/{id}")
+    @PutMapping("/role/permission/{id}")
     public Result modifyRolePermissions(@PathVariable("id") Long roleId,
             @RequestParam(value = "permissions[]", required = false) List<Long> permissions) {
         roleService.updateRolePermission(roleId, permissions);
         return ok();
     }
+
 }
