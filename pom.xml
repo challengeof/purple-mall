@@ -19,10 +19,13 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <ebean.version>11.41.2</ebean.version>
+        <ebean.version>11.42.3</ebean.version>
+        <querybean-generator.version>11.42.1</querybean-generator.version>
+        <ebean-querybean.version>11.42.1</ebean-querybean.version>
         <swagger-ui.version>2.6.1</swagger-ui.version>
         <dubbo.version>2.7.3</dubbo.version>
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
+        <nacos.version>1.1.1</nacos.version>
     </properties>
 
     <parent>
@@ -52,13 +55,13 @@
             <dependency>
                 <groupId>io.ebean</groupId>
                 <artifactId>querybean-generator</artifactId>
-                <version>${ebean.version}</version>
+                <version>${querybean-generator.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>io.ebean</groupId>
                 <artifactId>ebean-querybean</artifactId>
-                <version>${ebean.version}</version>
+                <version>${ebean-querybean.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -164,12 +167,28 @@
             <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo-spring-boot-starter</artifactId>
+                <version>2.7.1</version>
+            </dependency>
+            <!-- Dubbo Registry Nacos -->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-registry-nacos</artifactId>
                 <version>${dubbo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>2.0.3</version>
+            </dependency>
+            <dependency>
+                <groupId>io.vavr</groupId>
+                <artifactId>vavr</artifactId>
+                <version>0.10.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

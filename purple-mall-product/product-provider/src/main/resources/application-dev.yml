@@ -58,17 +58,16 @@ jetcache:
       valueEncoder: java
       valueDecoder: java
       uri: redis://127.0.0.1:6379
+nacos:
+  server-address: 127.0.0.1
+  port: 8848
 dubbo:
   registry:
-    address: zookeeper://127.0.0.1:2181
-    client: curator
+    address: nacos://${nacos.server-address}:${nacos.port}
   protocol:
     name: dubbo
     port: -1
-    serialization: kryo
   scan:
     base-packages: net.caidingke
   provider:
     timeout: 5000
-  application:
-    logger: slf4j

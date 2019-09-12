@@ -1,12 +1,8 @@
 package net.caidingke.business.component;
 
 import com.google.common.collect.Lists;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import io.vavr.Tuple;
+import io.vavr.Tuple3;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +20,9 @@ import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author bowen
@@ -185,7 +184,7 @@ public abstract class AbstractEs<T, Q> {
      * Add some extra field
      *
      * @param content Need indexing content
-     * @param entity content corresponding entity
+     * @param entity  content corresponding entity
      */
     protected abstract void putExtraFields(Map<String, Object> content, T entity);
 
@@ -205,18 +204,19 @@ public abstract class AbstractEs<T, Q> {
     protected abstract SearchHits esHits(Q query) throws Exception;
 
     public Page<String> search(Q query) throws Exception {
-        SearchHits searchHits = esHits(query);
-        long showCount = searchHits.getTotalHits();
-        long count = showCount > SEARCH_LIMIT ? SEARCH_LIMIT : showCount;
-        return new Page<>(Arrays.stream(searchHits.getHits()).map(SearchHit::getId)
-                .collect(Collectors.toList()), count, showCount);
+        Tuple3<Long, Long, SearchHits> tuple3 = page(query);
+        return new Page<>(Arrays.stream(tuple3._3.getHits()).map(SearchHit::getId).collect(Collectors.toList()), tuple3._1, tuple3._2);
     }
 
     public Page<Map<String, Object>> searchEntities(Q query) throws Exception {
+        Tuple3<Long, Long, SearchHits> tuple3 = page(query);
+        return new Page<>(Arrays.stream(tuple3._3.getHits()).map(SearchHit::getSourceAsMap).collect(Collectors.toList()), tuple3._1, tuple3._2);
+    }
+
+    private Tuple3<Long, Long, SearchHits> page(Q query) throws Exception {
         SearchHits searchHits = esHits(query);
         long showCount = searchHits.getTotalHits();
         long count = showCount > SEARCH_LIMIT ? SEARCH_LIMIT : showCount;
-        return new Page<>(Arrays.stream(searchHits.getHits())
-                .map(SearchHit::getSourceAsMap).collect(Collectors.toList()), count, showCount);
+        return Tuple.of(count, showCount, searchHits);
     }
 }

@@ -1,6 +1,7 @@
 package net.caidingke.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.ebean.annotation.DbComment;
 import io.ebean.annotation.DbDefault;
 import io.ebean.annotation.Index;
 import javax.persistence.Column;

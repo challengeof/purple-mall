@@ -10,7 +10,6 @@ import net.caidingke.business.controller.request.CustomerRequest;
 import net.caidingke.business.exception.BizException;
 import net.caidingke.business.exception.ErrorCode;
 import net.caidingke.common.mapper.BeanUtils;
-import net.caidingke.domain.Book;
 import net.caidingke.domain.Customer;
 import net.caidingke.utils.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,20 +61,5 @@ public class CustomerService {
         customer.setPassword(passwordEncoder.encode(password));
         customer.update();
         redisTemplate.delete(TokenProvider.generateKey(customer.getUsername()));
-    }
-
-    @org.springframework.transaction.annotation.Transactional
-    public void testTransactional() {
-        Book book = new Book();
-        book.setName("追风筝的孩子");
-        book.insert();
-        test();
-    }
-
-    private void test() {
-        Book book = new Book();
-        book.setName("算法");
-        book.save();
-        throw new RuntimeException();
     }
 }

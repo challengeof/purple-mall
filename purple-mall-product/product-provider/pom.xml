@@ -59,28 +59,14 @@
     <dependency>
       <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>log4j</groupId>
-          <artifactId>log4j</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.dubbo</groupId>
-      <artifactId>dubbo-dependencies-zookeeper</artifactId>
-      <version>${dubbo.version}</version>
-      <type>pom</type>
-        <exclusions>
-            <exclusion>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-            </exclusion>
-            <exclusion>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-            </exclusion>
-        </exclusions>
+      <artifactId>dubbo-registry-nacos</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.nacos</groupId>
+      <artifactId>nacos-client</artifactId>
     </dependency>
     <dependency>
       <groupId>com.alicp.jetcache</groupId>
@@ -93,12 +79,6 @@
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/de.javakaffee/kryo-serializers -->
-    <dependency>
-      <groupId>de.javakaffee</groupId>
-      <artifactId>kryo-serializers</artifactId>
-      <version>0.45</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

@@ -74,11 +74,5 @@ public class CustomerController extends BasicController {
         return ok();
     }
 
-    @GetMapping("/test")
-    public Result testTransactional() {
-        customerService.testTransactional();
-
-        return ok();
-    }
 
 }

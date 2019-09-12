@@ -35,6 +35,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
                     "User " + username + " was not found in the "
                             + "database");
         }
+        System.out.println(user.getUsername());
         if (!user.isEnabled()) {
             throw new BusinessException(ErrorCode._10002);
         }

@@ -4,6 +4,8 @@ import com.alicp.jetcache.anno.CacheInvalidate;
 import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.Cached;
 import com.google.common.base.Strings;
+import io.ebean.DB;
+import io.ebean.annotation.Cache;
 import io.ebean.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import net.caidingke.common.mapper.BeanUtils;
 import net.caidingke.domain.User;
 import net.caidingke.utils.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,7 +42,7 @@ public class UserService {
         return RDSCache.get(User.class, id, User.find::byId);
     }
 
-    @Cached(name = "user:", key = "#username", cacheType = CacheType.BOTH)
+    @Cached(name = "user:", key = "#username", cacheType = CacheType.REMOTE)
     public User findByUsername(String username) {
         return User.find.where().username.eq(username).findOne();
     }

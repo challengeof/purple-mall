@@ -1,10 +1,5 @@
 package net.caidingke.business.service;
 
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.caidingke.business.component.AbstractEs;
 import net.caidingke.business.component.query.BookQuery;
 import net.caidingke.domain.Book;
@@ -23,6 +18,11 @@ import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Map;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 /**
  * @author bowen
@@ -130,11 +130,5 @@ public class BookEsClient extends AbstractEs<Book, BookQuery> {
 
         SearchResponse resp = searchRequestBuilder.execute().actionGet();
         return resp.getHits();
-    }
-
-    public static void main(String[] args) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("方面", "a");
-        map.put("树人", "b");
     }
 }

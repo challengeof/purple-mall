@@ -1,5 +1,6 @@
 package net.caidingke.impl;
 
+import io.ebean.DB;
 import io.ebean.annotation.Transactional;
 import net.caidingke.api.ProductService;
 import net.caidingke.domain.Product;
