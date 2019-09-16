@@ -1,0 +1,13 @@
+sudo: false
+
+language: java
+
+addons:
+  sonarcloud:
+    organization: "challengeof"
+    token:
+      secure: "413a88a820c74049cddfa0c1ed657af70a3eb1e6" # encrypted value of your token
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=challengeof_purple-mall
