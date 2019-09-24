@@ -76,6 +76,9 @@
       <artifactId>qrcode</artifactId>
       <version>1.0.0</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>joor-java-8</artifactId>
+    </dependency>
   </dependencies>
 </project>

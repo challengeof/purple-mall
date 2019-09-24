@@ -141,7 +141,7 @@ public abstract class AbstractEs<T, Q> {
                 .actionGet();
     }
 
-    public void updateBulkHouse(Long[] ids, Map<String, Object> data) throws Exception {
+    public void updateBulk(Long[] ids, Map<String, Object> data) throws Exception {
         BulkRequestBuilder prepareBulk = client.prepareBulk();
         for (Long id : ids) {
             prepareBulk.add(client.prepareUpdate(indexAlias, type, String.valueOf(id))

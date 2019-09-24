@@ -1,20 +1,21 @@
 package net.caidingke.domain;
 
 import io.ebean.annotation.SoftDelete;
-import java.math.BigDecimal;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.caidingke.domain.base.BaseModel;
 import net.caidingke.domain.finder.ProductFinder;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import java.math.BigDecimal;
 
 /**
  * @author bowen
  */
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class Product extends BaseModel {
 
     public static final ProductFinder find = new ProductFinder();

@@ -1,17 +1,18 @@
 package net.caidingke.domain;
 
-import javax.persistence.Entity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import net.caidingke.domain.base.BaseModel;
 import net.caidingke.domain.finder.ProductBasicSpecFinder;
+
+import javax.persistence.Entity;
 
 /**
  * @author bowen
  */
 @Entity
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class ProductBasicSpec extends BaseModel {
 
     public static final ProductBasicSpecFinder find = new ProductBasicSpecFinder();

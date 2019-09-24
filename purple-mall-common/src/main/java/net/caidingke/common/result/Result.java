@@ -2,6 +2,7 @@ package net.caidingke.common.result;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * @author bowen
@@ -9,6 +10,7 @@ import lombok.Getter;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
+@ToString
 public class Result<T> extends Response {
 
     private static final long serialVersionUID = 7133152428901216030L;

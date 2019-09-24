@@ -2,21 +2,21 @@ package net.caidingke.domain.base;
 
 import io.ebean.Model;
 import io.ebean.annotation.WhenCreated;
-import java.io.Serializable;
-import java.util.Map;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import net.caidingke.common.mapper.JsonMapper;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import lombok.Getter;
-import lombok.Setter;
-import net.caidingke.common.mapper.JsonMapper;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @author bowen
  */
 @MappedSuperclass
-@Getter
-@Setter
+@Data
 public class BaseModel extends Model implements Serializable {
 
     private static final long serialVersionUID = -1322034841828005834L;
@@ -32,7 +32,6 @@ public class BaseModel extends Model implements Serializable {
     @WhenCreated
     private long createTime;
 
-    @SuppressWarnings("unchecked")
     public Map<String, Object> toMap() {
         return JsonMapper.toMapWithType(this, String.class, Object.class);
     }

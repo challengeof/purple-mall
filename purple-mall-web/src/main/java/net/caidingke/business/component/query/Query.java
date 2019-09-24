@@ -1,15 +1,13 @@
 package net.caidingke.business.component.query;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * basic query
  *
  * @author bowen
  */
-@Getter
-@Setter
+@Data
 public class Query {
     protected int start;
     protected int limit;

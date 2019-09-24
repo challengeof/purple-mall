@@ -1,7 +1,7 @@
 package net.caidingke.business.component.query;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,8 +10,8 @@ import java.util.Set;
 /**
  * @author bowen
  */
-@Getter
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class BookQuery extends Query implements Serializable {
     private static final long serialVersionUID = -3713580498312791941L;
     private int status;

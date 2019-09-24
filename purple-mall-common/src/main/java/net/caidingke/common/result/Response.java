@@ -1,13 +1,16 @@
 package net.caidingke.common.result;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.Serializable;
 import lombok.Getter;
+import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
  * @author bowen
  */
 @Getter
+@ToString
 public class Response implements Serializable {
 
     private static final long serialVersionUID = -7443567025391054307L;
