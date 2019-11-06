@@ -3,8 +3,7 @@ package net.caidingke.business.component;
 import com.google.common.collect.Lists;
 import io.vavr.Tuple;
 import io.vavr.Tuple3;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.caidingke.common.Page;
 import net.caidingke.common.mapper.JsonMapper;
@@ -27,8 +26,7 @@ import java.util.stream.Collectors;
 /**
  * @author bowen
  */
-@Getter
-@Setter
+@Data
 @Slf4j
 public abstract class AbstractEs<T, Q> {
 
@@ -40,7 +38,7 @@ public abstract class AbstractEs<T, Q> {
 
     protected final Client client;
 
-    protected static final int SEARCH_LIMIT = 10000;
+    protected static final int SEARCH_LIMIT = 1000;
 
     public AbstractEs(Client client, String indexAlias, String type, Class<T> cls) {
         this.client = client;
@@ -49,6 +47,12 @@ public abstract class AbstractEs<T, Q> {
         this.cls = cls;
     }
 
+    /**
+     * custom build mapping
+     *
+     * @return content builder
+     * @throws Exception If build mapping is wrong
+     */
     protected abstract XContentBuilder buildMapping() throws Exception;
 
     /**
@@ -163,15 +167,15 @@ public abstract class AbstractEs<T, Q> {
         BulkRequestBuilder prepareBulk = client.prepareBulk();
         for (T entity : entities) {
             Map<String, Object> map = toMap(entity);
-            Object idObject = null;
+            Object id = null;
             try {
-                idObject = map.get("id");
+                id = map.get("id");
             } catch (Exception e) {
                 //ignored exception just print
                 log.error(e.getMessage(), e);
             }
-            if (idObject != null) {
-                prepareBulk.add(client.prepareIndex(index, type, String.valueOf(map.get("id")))
+            if (id != null) {
+                prepareBulk.add(client.prepareIndex(index, type, String.valueOf(id))
                         .setSource(map, XContentType.JSON));
             } else {
                 prepareBulk.add(client.prepareIndex(index, type).setSource(map, XContentType.JSON));

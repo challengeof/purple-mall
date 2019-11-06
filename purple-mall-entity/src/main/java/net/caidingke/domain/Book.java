@@ -6,6 +6,9 @@ import net.caidingke.domain.base.BaseModel;
 import net.caidingke.domain.finder.BookFinder;
 
 import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author bowen
@@ -25,6 +28,12 @@ public class Book extends BaseModel {
      * 状态
      */
     private int status;
+
+    public static void main(String[] args) {
+        String s = "1";
+        Long a = 1L + Long.valueOf(s);
+        System.out.println(s.getClass());
+    }
 }
 
 

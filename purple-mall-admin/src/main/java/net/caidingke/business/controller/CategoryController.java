@@ -4,6 +4,7 @@ import net.caidingke.api.CategoryService;
 import net.caidingke.base.BasicController;
 import net.caidingke.common.result.Result;
 import net.caidingke.domain.Category;
+import net.caidingke.domain.Customer;
 import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,5 +48,20 @@ public class CategoryController extends BasicController {
     public Result<List<Category>> getChildrenCategoriesByParentId(Long id) {
         return ok(categoryService.getChildrenCategoriesByParentId(id));
     }
+
+    @GetMapping("/test")
+    public Result test() {
+        return ok(Customer.find.where().findList());
+    }
+
+    @PostMapping("/insert")
+    public Result insertTest() {
+        Customer customer = new Customer();
+        customer.setNickname("\uD83D\uDE00");
+        customer.setUsername("bowen1");
+        customer.insert();
+        return ok();
+    }
+
 
 }

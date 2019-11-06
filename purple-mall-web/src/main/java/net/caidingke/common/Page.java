@@ -1,16 +1,15 @@
 package net.caidingke.common;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author bowen
  */
-@Getter
-@Setter
+@Data
 public class Page<T> implements Serializable {
 
     private static final long serialVersionUID = 3979108363063036995L;

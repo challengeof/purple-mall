@@ -13,4 +13,5 @@ public class Query {
     protected int limit;
     protected String sortField;
     protected String sortOrder;
+
 }
