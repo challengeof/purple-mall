@@ -68,18 +68,24 @@ purple:
     header: Authorization
     route-path: /auth
 dubbo:
+  application:
+    name: testdubbo1
   registry:
     address: zookeeper://127.0.0.1:2181
     client: curator
   protocol:
     name: dubbo
     port: -1
-    serialization: kryo
+#    serialization: kryo
   scan:
     base-packages: net.caidingke
   consumer:
     retries: 0
     timeout: 5000
+    check: false
+  provider:
+    dynamic: true
+
 rocketmq:
   nameServer: localhost:9876
   producer:

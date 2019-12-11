@@ -2,6 +2,7 @@ package net.caidingke.business.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.caidingke.api.BrandService;
+import net.caidingke.api.OrderService;
 import net.caidingke.base.BasicController;
 import net.caidingke.common.result.Result;
 import net.caidingke.common.result.ResultPage;
@@ -26,6 +27,9 @@ public class BrandController extends BasicController {
     @Reference(version = "1.0.0")
     private BrandService brandService;
 
+    @Reference(version = "1.0.0")
+    private OrderService orderService;
+
     private final RocketMQTemplate rocketMQTemplate;
 
     public BrandController(RocketMQTemplate rocketMQTemplate) {
@@ -34,7 +38,7 @@ public class BrandController extends BasicController {
 
     @GetMapping("/brands")
     public ResultPage<Brand> findBrand(@RequestParam String name, @RequestParam Integer status,
-            @RequestParam int page, @RequestParam int pageSize) {
+                                       @RequestParam int page, @RequestParam int pageSize) {
         return brandService.findBrand(name, status, page, pageSize);
     }
 
@@ -53,6 +57,8 @@ public class BrandController extends BasicController {
     @GetMapping("/brand")
     public Result<Brand> findById(@RequestParam Long id) throws Exception {
         Brand brand = brandService.findById(id);
+        String str = orderService.findById(id);
+        System.out.println(str);
         return ok(brand);
     }
 

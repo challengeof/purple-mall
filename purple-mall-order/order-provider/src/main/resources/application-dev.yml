@@ -1,6 +1,6 @@
 spring:
   application:
-    name: purple_mall_admin
+    name: purple_mall_order
   jackson:
       default-property-inclusion: non_null
   datasource:
@@ -71,7 +71,7 @@ dubbo:
   provider:
     timeout: 5000
   application:
-    name: testdubbo
+    name: orderdubbo
   config-center:
     address:
 #    logger: slf4j

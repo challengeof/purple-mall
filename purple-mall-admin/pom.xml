@@ -70,7 +70,19 @@
       <artifactId>product-api</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>net.caidingke</groupId>
+      <artifactId>order-api</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
     <!-- Dubbo Spring Boot Starter -->
+    <dependency>
+      <groupId>org.apache.dubbo</groupId>
+      <artifactId>dubbo-cluster</artifactId>
+      <version>2.7.3</version>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo-spring-boot-starter</artifactId>
@@ -83,6 +95,10 @@
           <groupId>log4j</groupId>
           <artifactId>log4j</artifactId>
         </exclusion>
+<!--        <exclusion>-->
+<!--          <groupId>org.apache.dubbo</groupId>-->
+<!--          <artifactId>dubbo-cluster</artifactId>-->
+<!--        </exclusion>-->
       </exclusions>
     </dependency>
     <dependency>
