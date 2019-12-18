@@ -68,4 +68,10 @@ public class BrandController extends BasicController {
         System.out.printf("syncSend1 to topic %s sendResult=%s %n", "springTopic", sendResult);
         return ok();
     }
+    @GetMapping("/order")
+    public Result findO() {
+        String str = orderService.findById(1L);
+        System.out.println(str);
+        return ok(str);
+    }
 }

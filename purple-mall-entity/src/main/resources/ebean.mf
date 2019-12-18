@@ -1,3 +1,0 @@
-entity-packages: net.caidingke.domain
-transactional-packages: net.caidingke
-querybean-packages: net.caidingke

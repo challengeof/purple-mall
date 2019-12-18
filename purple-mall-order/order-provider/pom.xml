@@ -57,12 +57,6 @@
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
         </dependency>
-            <dependency>
-              <groupId>org.apache.dubbo</groupId>
-              <artifactId>dubbo-cluster</artifactId>
-              <version>2.7.3</version>
-            </dependency>
-
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
@@ -71,10 +65,10 @@
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                 </exclusion>
-                <!--        <exclusion>-->
-                <!--          <groupId>org.apache.dubbo</groupId>-->
-                <!--          <artifactId>dubbo-cluster</artifactId>-->
-                <!--        </exclusion>-->
+                <exclusion>
+                    <groupId>org.apache.dubbo</groupId>
+                    <artifactId>dubbo-cluster</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -116,5 +110,26 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.repaint.maven</groupId>
+                <artifactId>tiles-maven-plugin</artifactId>
+                <version>2.16</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <tiles>
+                        <tile>io.ebean.tile:enhancement:12.1.8</tile>
+                    </tiles>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>
