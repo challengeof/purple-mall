@@ -9,6 +9,7 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+      write-dates-as-timestamps: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/purple_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=false

@@ -1,6 +1,9 @@
 package net.caidingke.impl;
 
 import com.google.common.base.Strings;
+import io.ebean.DB;
+import io.ebean.FetchGroup;
+import io.ebean.PagedList;
 import io.ebean.annotation.Transactional;
 
 import java.io.StringReader;
@@ -31,8 +34,11 @@ public class BrandServiceImpl implements BrandService {
         if (!Strings.isNullOrEmpty(name)) {
             query.name.eq(name);
         }
-        return ResultUtils
-                .ok(query.setFirstRow(page * pageSize).setMaxRows(pageSize).findPagedList());
+        PagedList pagedList = query.setFirstRow(page * pageSize).setMaxRows(pageSize).findPagedList();
+        ResultPage result = ResultUtils
+                .ok(pagedList);
+
+        return result;
     }
 
     @Override
@@ -51,7 +57,30 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand findById(@Nonnull Long id) {
+        Brand bran = Brand.find.byId(id);
+        BeanUtils.copyProperties(bran, new Dto());
         return RDSCache.get(Brand.class, id, Brand.find::byId);
+    }
+
+    public static class Dto {
+        private String name;
+        private Long idd;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Long getIdd() {
+            return idd;
+        }
+
+        public void setIdd(Long idd) {
+            this.idd = idd;
+        }
     }
 
 }

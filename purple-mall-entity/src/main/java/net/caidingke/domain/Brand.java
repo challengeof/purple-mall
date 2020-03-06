@@ -2,6 +2,8 @@ package net.caidingke.domain;
 
 import io.ebean.annotation.Index;
 import javax.persistence.Entity;
+
+import io.ebean.annotation.UnmappedJson;
 import lombok.Getter;
 import lombok.Setter;
 import net.caidingke.domain.base.BaseModel;
@@ -55,4 +57,5 @@ public class Brand extends BaseModel {
      * 描述
      */
     private String description;
+
 }

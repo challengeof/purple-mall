@@ -1,0 +1,41 @@
+server:
+  port: 8588
+spring:
+  application:
+    name: fission
+  datasource:
+    url: jdbc:mysql://localhost:3306/fission?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      idle-timeout: 60000
+      connection-timeout: 30000
+      maximum-pool-size: 10
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+      connection-test-query:
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    timeout: 300d
+    lettuce:
+      pool:
+        max-active: 10
+        max-wait: -1d
+        max-idle: 10
+        min-idle: 0
+      shutdown-timeout: 100d
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+token: kler154ddatas2oud233jmkl23
+encodingAESKey: iikv1NeeoLNzlwiS6MF4bIyH9ojDL5y0rDb9M3GPWur
+appId: wx2162033865fd0626
+appSecret: 2587ca098b81fcdfe1d0dd6e05dfac8e
+dd: ff
+aaa: ${aa:${bb:${dd}}}

@@ -4,18 +4,16 @@ import lombok.extern.slf4j.Slf4j;
 import net.caidingke.api.BrandService;
 import net.caidingke.api.OrderService;
 import net.caidingke.base.BasicController;
+import net.caidingke.common.AbstractLottery;
 import net.caidingke.common.result.Result;
 import net.caidingke.common.result.ResultPage;
 import net.caidingke.domain.Brand;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DecimalFormat;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 /**
  * @author bowen
@@ -58,7 +56,6 @@ public class BrandController extends BasicController {
     public Result<Brand> findById(@RequestParam Long id) throws Exception {
         Brand brand = brandService.findById(id);
         String str = orderService.findById(id);
-        System.out.println(str);
         return ok(brand);
     }
 
@@ -68,10 +65,21 @@ public class BrandController extends BasicController {
         System.out.printf("syncSend1 to topic %s sendResult=%s %n", "springTopic", sendResult);
         return ok();
     }
+
     @GetMapping("/order")
     public Result findO() {
         String str = orderService.findById(1L);
         System.out.println(str);
         return ok(str);
+    }
+
+    @PostMapping("/lottery")
+    public Result testLottery(@RequestBody LotteryParams params) {
+        return ok(AbstractLottery.lottery(params.getCandidate(), params.getPrizeQuantity(), params.isFair()));
+    }
+
+    @GetMapping("/time")
+    public Result redis() {
+        return ok(LocalDateTime.now());
     }
 }
