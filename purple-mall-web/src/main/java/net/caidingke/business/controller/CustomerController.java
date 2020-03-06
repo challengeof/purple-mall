@@ -1,6 +1,8 @@
 package net.caidingke.business.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
+import net.caidingke.aop.secure.FrequencyRestriction;
 import net.caidingke.base.BasicController;
 import net.caidingke.business.controller.request.CustomerRequest;
 import net.caidingke.business.exception.BizException;
@@ -50,7 +52,8 @@ public class CustomerController extends BasicController {
     }
 
     @PostMapping("/register")
-    public Result<Customer> register(CustomerRequest userRequest) {
+    @FrequencyRestriction(interval = 5)
+    public Result<Customer> register(CustomerRequest userRequest,String currentUserAccount) {
         Customer customer = customerService.register(userRequest);
         return ok(customer);
     }

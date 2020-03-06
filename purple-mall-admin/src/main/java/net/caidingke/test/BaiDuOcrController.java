@@ -7,6 +7,7 @@ import net.caidingke.common.result.Result;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +20,8 @@ import java.util.HashMap;
  */
 @RestController
 @Slf4j
-public class TestController extends BasicController {
+@RequestMapping("/test")
+public class BaiDuOcrController extends BasicController {
 
     private static final String SECRET_KEY = "mQLELRG8YikZkznUa039SIw34CfbxVE6";
 
@@ -40,11 +42,11 @@ public class TestController extends BasicController {
         options.put("detect_direction", "true");
         options.put("detect_risk", "false");
 
-        String idCardSide = "back";
+        String idCardSide = "front";
 
         JSONObject res = client.idcard(image, idCardSide, options);
         System.out.println(res.toString(2));
-        return ok();
+        return ok("nihao");
     }
 
 }

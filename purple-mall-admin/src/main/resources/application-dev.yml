@@ -5,6 +5,10 @@ spring:
     name: purple_mall_admin
   jackson:
       default-property-inclusion: non_null
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/purple_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=false

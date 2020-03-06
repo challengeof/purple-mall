@@ -4,7 +4,6 @@ import com.alicp.jetcache.anno.CacheInvalidate;
 import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.Cached;
 import com.google.common.base.Strings;
-import io.ebean.annotation.Transactional;
 import net.caidingke.aop.cache.RDSCache;
 import net.caidingke.business.controller.request.CustomerRequest;
 import net.caidingke.business.exception.BizException;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author bowen

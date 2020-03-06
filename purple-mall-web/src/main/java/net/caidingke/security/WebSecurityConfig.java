@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/**", "/login/**", "/register", "/swagger-resources/**",
+                .antMatchers("/auth/**", "/login/**", "/customer/register", "/swagger-resources/**",
                         "/webjars/**", "/test/**")
                 .permitAll()
                 .anyRequest()
