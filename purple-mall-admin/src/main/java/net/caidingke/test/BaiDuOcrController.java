@@ -45,8 +45,29 @@ public class BaiDuOcrController extends BasicController {
         String idCardSide = "front";
 
         JSONObject res = client.idcard(image, idCardSide, options);
-        System.out.println(res.toString(2));
-        return ok("nihao");
+        return ok(res.toString(2));
     }
 
+    @PostMapping(value = "/picture")
+    public Result picture(@RequestParam MultipartFile file) throws IOException, JSONException {
+        // 传入可选参数调用接口
+        HashMap<String, String> options = new HashMap<>();
+        options.put("language_type", "CHN_ENG");
+        options.put("detect_direction", "true");
+        options.put("detect_language", "true");
+        options.put("probability", "true");
+
+
+        AipOcr client = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
+        // 参数为本地图片二进制数组
+        byte[] file1 = file.getBytes();
+        JSONObject res = client.basicGeneral(file1, options);
+        System.out.println(res.toString(2));
+
+
+        // 通用文字识别, 图片参数为远程url图片
+        // JSONObject res = client.basicGeneralUrl(url, options);
+        // System.out.println(res.toString(2));
+        return ok(res.toString(2));
+    }
 }

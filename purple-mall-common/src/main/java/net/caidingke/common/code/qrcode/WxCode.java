@@ -1,5 +1,6 @@
 package net.caidingke.common.code.qrcode;
 
+import com.google.common.base.Splitter;
 import com.google.common.io.Files;
 import jodd.http.HttpRequest;
 import jodd.http.HttpResponse;
@@ -8,9 +9,7 @@ import net.caidingke.common.mapper.JsonMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author bowen
@@ -22,6 +21,7 @@ public class WxCode {
     private static final String URL = "https://api.weixin.qq.com/wxa/getwxacode?access_token=%s";
     private static final String UUU = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=%s";
     private static final String UUUU = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=%s";
+    private static final String aa = "https://api.weixin.qq.com/wxa/getwxacode?access_token=%s";
 
     private Map<String, Object> params;
 
@@ -89,24 +89,32 @@ public class WxCode {
         return this;
     }
 
-    public String getWxCode() throws IOException {
+    public String getWxCode(String filename) throws IOException {
         Objects.requireNonNull(params.get("path"), "path must not be null");
-        HttpResponse send = HttpRequest.post(String.format(URL, this.accessToken)).body(JsonMapper.toJson(params)).send();
+        HttpResponse send = HttpRequest.post(String.format(UUU, this.accessToken)).body(JsonMapper.toJson(params)).send();
         String body = send.body();
         Map<String, String> result = JsonMapper.toMapWithType(body, String.class, String.class);
         if (result == null) {
 
         }
         byte[] bodyBytes = send.bodyBytes();
-        Files.write(bodyBytes, new File("123456.png"));
+        Files.write(bodyBytes, new File(filename+".png"));
         return body;
     }
 
     public static void main(String[] args) throws IOException {
-        WxCode.of("24_lkpXkV7q3y2sX_1uLDV9epyGVAKZCx_sKyE5NUlVXs5bbHeWo9Pcbuh91yWFsaecKcLHoEDpi1zvELONdh3k-nmO_M0hP10tr2kOyggjTwzRxzj4n4PTSBZdrGNRPsVmD6kohPMIrJmTnblfKVQeAIAQBW")
-                .path("?a=b")
-                .width(200)
-                .getWxCode();
-    }
+        // String str = "V10002_3,V10003_3,V10004_3,V10005_3,V10006_3,V10007_3,V10008_3,V10009_3,V10010_3,V10011_3,V10012_3,V10013_3,V10014_3,V10015_3,V10016_3,V10017_3,V10018_3,V10019_3,V10020_3,V10021_3,V10022_3,V10023_3,V10024_3,V10025_3,V10026_3,V10027_3,V10028_3,V10029_3,V10030_3,V10031_3";
+        // List<String> list = Splitter.on(",").splitToList(str);
+        // for (String s : list) {
+        String s = "V10032_3";
+            String filename = Splitter.on("_").splitToList(s).get(0);
+            String page = String.format("page/activty/markteActive/middleware/middleware?scene=%s", s);
+            WxCode.of("32_TYxEZbQIO1bCWjaZgvktWNk9z-sIpak2X0q8RGsMISDwecEUqraYDJzwi8Y_agapidmQa9bZazQ_sie5NulcoqSiNsDValMtjA0aTNuZFq4AxYQYgZ3zQ4yqC4UTKcKqhiZo5nXbuUm86XydFQMiAHAPAW")
+                    // .path("page/services/realGoodsServe/productDetails/productDetails?goodsId=161")
+                    .path(page)
+                    .width(660)
+                    .getWxCode(filename);
+        // }
 
+    }
 }

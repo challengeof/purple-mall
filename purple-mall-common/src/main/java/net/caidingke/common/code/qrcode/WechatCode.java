@@ -9,7 +9,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import net.caidingke.common.mapper.JsonMapper;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -43,7 +47,7 @@ public class WechatCode {
     }
 
     public static String getAccessToken() {
-        String url = String.format(TOKEN, "wx2162033865fd0626", "2587ca098b81fcdfe1d0dd6e05dfac8e");
+        String url = String.format(TOKEN, "wx17f444ee74bc113d", "803ba684c3feeea06544432d606bc067");
         HttpResponse send = HttpRequest.get(url).send().charset("utf-8");
         String body = send.body();
         Map<Object, Object> result = JsonMapper.toMapWithType(body, Object.class, Object.class);
@@ -96,7 +100,7 @@ public class WechatCode {
 
     public static void sendMessageNew(String accessToken) {
         Map<String, Value> data = ImmutableMap.of("character_string2", new Value("dingdanbianhao"),"thing6",new Value("线路名称"),"time3",new Value("15:01"),"date4",new Value("15:01"),"thing8",new Value("温馨提示"));
-        Message message = Message.builder().access_token(accessToken).page("/page/page/index").touser("oEEv74qYAbMO6Zyd2iwQiibbzNrQ").template_id("pEhurn_mEUFlO5Zh8wS3ZuLAQQRxUJ7viuP-_OSxN3s").data(data).build();
+        Message message = Message.builder().wechatAppId("11111").page("/page/page/index").touser("oEEv74qYAbMO6Zyd2iwQiibbzNrQ").template_id("pEhurn_mEUFlO5Zh8wS3ZuLAQQRxUJ7viuP-_OSxN3s").data(data).build();
         String url = String.format("https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=%s", accessToken);
         HttpResponse response = HttpRequest.post(url).charset("utf-8").bodyText(JsonMapper.toJson(message)).send();
         System.out.println(response);
@@ -107,6 +111,10 @@ public class WechatCode {
     }
 
     public static void main(String[] args) throws IOException {
+
+        // String str = getAccessToken();
+        // System.out.println(str);
+        // sendMessageNew("31_MN74FcU7JmE-gJFdBQqb05blaEJ4rni2mRK2xV1WRg56IArwSysRnHmSMSivqKmVh98MDY0gGOtxIjazZosoX3BdgPJRmuLAN8DMBCPGuCU-V-Zrxv-ZPmACFuaFngB4dKCbEShWBJBByHmhBMQdAFAWHL");
         // String accessToken = WechatCode.getAccessToken();
         // String token = "29_mybcf7DUtGLhy_sNtsw8z0JughoACLU_jO1jkNm29aoGxJxEwt3Q8PCGD4WuvJZkVLC0xyS-bS1NILPebrqfxtXpLBOIGTB9bTj8M34ZE5bLkjYxFxoAJmQZ9_o9EzIJw6ypn0WRyp8p5BZRQVOdACAZEX";
         // File file = new File("cc.png");
@@ -122,8 +130,8 @@ public class WechatCode {
         // String str = send.bodyText();
         // System.out.println(str);
         // System.out.println(accessToken);
-        String accessToken = "29_xn3WyEjMrgdeQwXpQO_GTpymK07mM-MKVq5szQht6e1lae0jzLV1OCsxgWvC6cVE7LKZSYY26kWhR3nz1qYWyLp2yMjF8tw6doEW3Ys2OtD84fmHUYdUnqtTClcB1Rpiih8xpZRb3IOspiQPCTHeAIAJAO";
-        sendMessageNew(accessToken);
+        // String accessToken = "29_xn3WyEjMrgdeQwXpQO_GTpymK07mM-MKVq5szQht6e1lae0jzLV1OCsxgWvC6cVE7LKZSYY26kWhR3nz1qYWyLp2yMjF8tw6doEW3Ys2OtD84fmHUYdUnqtTClcB1Rpiih8xpZRb3IOspiQPCTHeAIAJAO";
+        // sendMessageNew(accessToken);
 
     }
 
@@ -153,6 +161,7 @@ public class WechatCode {
         private String touser;
         private Map<String,Value> data;
         private String access_token;
+        private String wechatAppId;
 
 
     }

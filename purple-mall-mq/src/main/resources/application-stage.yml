@@ -1,14 +1,10 @@
 server:
-  port: 1020
+  port: 1021
 spring:
   application:
     name: purple_mall_admin
   jackson:
       default-property-inclusion: non_null
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://localhost:3306/purple_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=false
@@ -71,28 +67,3 @@ purple:
     token-validity-in-seconds: 864000000
     header: Authorization
     route-path: /auth
-dubbo:
-  application:
-    name: testdubbo1
-  registry:
-    address: zookeeper://127.0.0.1:2181
-    client: curator
-  protocol:
-    name: dubbo
-    port: -1
-    threads: 
-  #    serialization: kryo
-  scan:
-    base-packages: net.caidingke
-  consumer:
-    retries: 0
-    timeout: 5000
-    check: false
-  provider:
-    dynamic: true
-
-rocketmq:
-  nameServer: localhost:9876
-  producer:
-    send-message-timeout: 5000
-    group: my-group

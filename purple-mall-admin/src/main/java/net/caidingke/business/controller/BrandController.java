@@ -11,9 +11,16 @@ import net.caidingke.domain.Brand;
 import org.apache.dubbo.config.annotation.Reference;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
+import org.openjdk.jol.info.ClassLayout;
+import org.openjdk.jol.vm.VM;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.ByteOrder;
 import java.time.LocalDateTime;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * @author bowen
@@ -25,8 +32,8 @@ public class BrandController extends BasicController {
     @Reference(version = "1.0.0")
     private BrandService brandService;
 
-    @Reference(version = "1.0.0")
-    private OrderService orderService;
+    // @Reference(version = "1.0.0")
+    // private OrderService orderService;
 
     private final RocketMQTemplate rocketMQTemplate;
 
@@ -54,8 +61,9 @@ public class BrandController extends BasicController {
 
     @GetMapping("/brand")
     public Result<Brand> findById(@RequestParam Long id) throws Exception {
+        System.out.println("bbddd");
         Brand brand = brandService.findById(id);
-        String str = orderService.findById(id);
+        // String str = orderService.findById(id);
         return ok(brand);
     }
 
@@ -66,12 +74,12 @@ public class BrandController extends BasicController {
         return ok();
     }
 
-    @GetMapping("/order")
-    public Result findO() {
-        String str = orderService.findById(1L);
-        System.out.println(str);
-        return ok(str);
-    }
+    // @GetMapping("/order")
+    // public Result findO() {
+    //     String str = orderService.findById(1L);
+    //     System.out.println(str);
+    //     return ok(str);
+    // }
 
     @PostMapping("/lottery")
     public Result testLottery(@RequestBody LotteryParams params) {
@@ -82,4 +90,35 @@ public class BrandController extends BasicController {
     public Result redis() {
         return ok(LocalDateTime.now());
     }
+
+    // public static void main(String[] args) throws ExecutionException, InterruptedException {
+    //     CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+    //         int i = 1 / 0;
+    //         return 100;
+    //     });
+    //     future.join();
+    //     // future.get();
+    // }
+    public static CompletableFuture<Integer> compute() {
+        final CompletableFuture<Integer> future = new CompletableFuture<>();
+        return future;
+    }
+    public static void main(String[] args) throws Exception {
+        T t = new T();
+        System.out.println(t.hashCode());
+        //查看字节序
+        System.out.println(ByteOrder.nativeOrder());
+
+        //打印当前jvm信息
+        System.out.println(VM.current().details());
+        System.out.println("======");
+        String classLayout = ClassLayout.parseInstance(t).toPrintable();
+        System.out.println(classLayout);
+
+    }
+
+    public static class T {
+
+    }
 }
+

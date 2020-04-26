@@ -1,5 +1,7 @@
 server:
   port: 8588
+  tomcat:
+    max-connections:
 spring:
   application:
     name: fission

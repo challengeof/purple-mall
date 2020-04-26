@@ -7,7 +7,9 @@ import io.ebean.PagedList;
 import io.ebean.annotation.Transactional;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Nonnull;
 
 import net.caidingke.api.BrandService;
@@ -34,11 +36,9 @@ public class BrandServiceImpl implements BrandService {
         if (!Strings.isNullOrEmpty(name)) {
             query.name.eq(name);
         }
-        PagedList pagedList = query.setFirstRow(page * pageSize).setMaxRows(pageSize).findPagedList();
-        ResultPage result = ResultUtils
+        PagedList<Brand> pagedList = query.setFirstRow(page * pageSize).setMaxRows(pageSize).findPagedList();
+        return ResultUtils
                 .ok(pagedList);
-
-        return result;
     }
 
     @Override
@@ -57,6 +57,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand findById(@Nonnull Long id) {
+        System.out.println("ccc");
         Brand bran = Brand.find.byId(id);
         BeanUtils.copyProperties(bran, new Dto());
         return RDSCache.get(Brand.class, id, Brand.find::byId);
@@ -81,6 +82,8 @@ public class BrandServiceImpl implements BrandService {
         public void setIdd(Long idd) {
             this.idd = idd;
         }
-    }
 
+        public static void find() {
+        }
+    }
 }

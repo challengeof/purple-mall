@@ -1,10 +1,11 @@
 package net.caidingke.domain;
 
-import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 import net.caidingke.domain.base.BaseModel;
-import net.caidingke.domain.finder.GroupFinder;
+import net.caidingke.domain.finder.CGroupFinder;
+
+import javax.persistence.Entity;
 
 /**
  * @author bowen
@@ -14,7 +15,7 @@ import net.caidingke.domain.finder.GroupFinder;
 @Setter
 public class CGroup extends BaseModel {
 
-    public static final GroupFinder find = new GroupFinder();
+    public static final CGroupFinder find = new CGroupFinder();
 
     private static final long serialVersionUID = -4981047452848552895L;
     /**

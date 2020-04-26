@@ -36,6 +36,11 @@ spring:
         max-idle: 10
         min-idle: 0
       shutdown-timeout: 100d
+  rabbitmq:
+    port: 5672
+    addresses: localhost
+    username: guest
+    password: guest
 logging:
   level:
     root : info
@@ -80,8 +85,7 @@ dubbo:
   protocol:
     name: dubbo
     port: -1
-    threads: 
-  #    serialization: kryo
+#    serialization: kryo
   scan:
     base-packages: net.caidingke
   consumer:
