@@ -1,7 +1,5 @@
 package net.caidingke.base;
 
-import static net.caidingke.common.result.ResultGenerator.error;
-
 import net.caidingke.business.exception.BusinessException;
 import net.caidingke.business.exception.ErrorCode;
 import net.caidingke.common.result.Result;
@@ -12,6 +10,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import static net.caidingke.common.result.ResultGenerator.error;
 
 /**
  * @author bowen
@@ -27,21 +27,21 @@ public class GlobalDefaultExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BusinessException.class)
-    public Result handlerBusinessException(BusinessException exception) {
+    public <T> Result<T> handlerBusinessException(BusinessException exception) {
         LOGGER.error(exception.getMsg(), exception);
         return error(exception.getCode(), exception.getMsg());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public Result handlerException(Exception exception) {
+    public Result<String> handlerException(Exception exception) {
         LOGGER.error(exception.getMessage(), exception);
         return SERVER_ERROR;
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler({AuthenticationException.class})
-    public Result handleAuthenticationException(AuthenticationException e) {
+    public <T> Result<T> handleAuthenticationException(AuthenticationException e) {
         LOGGER.error(e.getMessage(), e);
         return error(ErrorCode._10001.getCode(), ErrorCode._10001.getMsg());
     }

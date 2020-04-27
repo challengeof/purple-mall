@@ -33,7 +33,7 @@ public class PermissionController extends BasicController {
     }
 
     @PostMapping("/permission")
-    public Result permission(PermissionRequest request) {
+    public Result<String> permission(PermissionRequest request) {
         permissionService.permission(request);
         return ok();
     }
@@ -44,7 +44,7 @@ public class PermissionController extends BasicController {
     }
 
     @PutMapping("/permission/{id}")
-    public Result modifyPermission(
+    public Result<String> modifyPermission(
             @PathVariable Long id, PermissionRequest request) {
         permissionService.modifyPermission(id, request);
         return ok();

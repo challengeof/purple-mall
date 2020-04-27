@@ -31,7 +31,7 @@ public class BaiDuOcrController extends BasicController {
 
 
     @PostMapping(value = "/upload")
-    public Result upload(@RequestParam MultipartFile file) throws IOException, JSONException {
+    public Result<String> upload(@RequestParam MultipartFile file) throws IOException, JSONException {
         byte[] image = file.getBytes();
         AipOcr client = new AipOcr(APP_ID, API_KEY, SECRET_KEY);
         client.setConnectionTimeoutInMillis(2000);
@@ -46,7 +46,7 @@ public class BaiDuOcrController extends BasicController {
 
         JSONObject res = client.idcard(image, idCardSide, options);
         System.out.println(res.toString(2));
-        return ok("nihao");
+        return ok();
     }
 
 }

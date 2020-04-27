@@ -14,6 +14,7 @@ import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author bowen
@@ -41,13 +42,13 @@ public class BrandController extends BasicController {
     }
 
     @PostMapping("/brand")
-    public Result createBrand(Brand brand) {
+    public Result<String> createBrand(Brand brand) {
         brandService.createBrand(brand);
         return ok();
     }
 
     @PutMapping("/brand")
-    public Result updateBrand(Long id, Brand brand) {
+    public Result<String> updateBrand(Long id, Brand brand) {
         brandService.updateBrand(id, brand);
         return ok();
     }
@@ -55,31 +56,19 @@ public class BrandController extends BasicController {
     @GetMapping("/brand")
     public Result<Brand> findById(@RequestParam Long id) throws Exception {
         Brand brand = brandService.findById(id);
-        String str = orderService.findById(id);
+        // String str = orderService.findById(id);
         return ok(brand);
     }
 
     @GetMapping("/mq")
-    public Result sendMessage(String message) {
+    public Result<String> sendMessage(String message) {
         SendResult sendResult = rocketMQTemplate.syncSend("springTopic", message);
         System.out.printf("syncSend1 to topic %s sendResult=%s %n", "springTopic", sendResult);
         return ok();
     }
 
-    @GetMapping("/order")
-    public Result findO() {
-        String str = orderService.findById(1L);
-        System.out.println(str);
-        return ok(str);
-    }
-
     @PostMapping("/lottery")
     public Result testLottery(@RequestBody LotteryParams params) {
         return ok(AbstractLottery.lottery(params.getCandidate(), params.getPrizeQuantity(), params.isFair()));
-    }
-
-    @GetMapping("/time")
-    public Result redis() {
-        return ok(LocalDateTime.now());
     }
 }

@@ -37,7 +37,7 @@ public class RoleController extends BasicController {
     }
 
     @PostMapping("/role")
-    public Result create(RoleRequest roleRequst) {
+    public Result<String> create(RoleRequest roleRequst) {
         roleService.create(roleRequst);
         return ok();
     }
@@ -48,13 +48,13 @@ public class RoleController extends BasicController {
     }
 
     @PutMapping("/role/{id}")
-    public Result modifyRole(@PathVariable Long id, String displayName, String name) {
+    public Result<String> modifyRole(@PathVariable Long id, String displayName, String name) {
         roleService.updateRole(id, displayName, name);
         return ok();
     }
 
     @PutMapping("/role/permission/{id}")
-    public Result modifyRolePermissions(@PathVariable("id") Long roleId,
+    public Result<String> modifyRolePermissions(@PathVariable("id") Long roleId,
             @RequestParam(value = "permissions[]", required = false) List<Long> permissions) {
         roleService.updateRolePermission(roleId, permissions);
         return ok();

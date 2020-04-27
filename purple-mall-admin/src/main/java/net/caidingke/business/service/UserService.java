@@ -71,7 +71,6 @@ public class UserService {
 
     public User findByEmail(String email) {
         this.testThis();
-        User.find.query().where();
         return User.find.where().email.eq(email).findOne();
     }
 

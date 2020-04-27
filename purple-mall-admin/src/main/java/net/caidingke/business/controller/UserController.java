@@ -59,7 +59,7 @@ public class UserController extends BasicController {
     }
 
     @PutMapping("/updatePassword")
-    public Result updatePassword(HttpServletRequest request, Long id, String oldPassword,
+    public Result<String> updatePassword(HttpServletRequest request, Long id, String oldPassword,
             String password) {
         final String jwtToken = request.getHeader(HttpHeaders.AUTHORIZATION);
         String username = tokenProvider.getUsernameFromToken(jwtToken.substring(7));
