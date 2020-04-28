@@ -22,6 +22,7 @@ public class WxCode {
     private static final String UUU = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=%s";
     private static final String UUUU = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=%s";
     private static final String aa = "https://api.weixin.qq.com/wxa/getwxacode?access_token=%s";
+    private static final String unlimit = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s";
 
     private Map<String, Object> params;
 
@@ -52,6 +53,11 @@ public class WxCode {
         return this;
     }
 
+    public WxCode page(String page) {
+        this.params.put("page", page);
+        return this;
+    }
+
     /**
      * 二维码的宽度，单位 px。最小 280px，最大 1280px
      * default 430
@@ -67,6 +73,11 @@ public class WxCode {
      */
     public WxCode autoColor(boolean autoColor) {
         this.params.put("auto_color", autoColor);
+        return this;
+    }
+
+    public WxCode scene(String scene) {
+        this.params.put("scene", scene);
         return this;
     }
 
@@ -90,8 +101,9 @@ public class WxCode {
     }
 
     public String getWxCode(String filename) throws IOException {
-        Objects.requireNonNull(params.get("path"), "path must not be null");
-        HttpResponse send = HttpRequest.post(String.format(UUU, this.accessToken)).body(JsonMapper.toJson(params)).send();
+
+        // Objects.requireNonNull(params.get("path"), "path must not be null");
+        HttpResponse send = HttpRequest.post(String.format(unlimit, this.accessToken)).body(JsonMapper.toJson(params)).send();
         String body = send.body();
         Map<String, String> result = JsonMapper.toMapWithType(body, String.class, String.class);
         if (result == null) {
@@ -106,13 +118,15 @@ public class WxCode {
         // String str = "V10002_3,V10003_3,V10004_3,V10005_3,V10006_3,V10007_3,V10008_3,V10009_3,V10010_3,V10011_3,V10012_3,V10013_3,V10014_3,V10015_3,V10016_3,V10017_3,V10018_3,V10019_3,V10020_3,V10021_3,V10022_3,V10023_3,V10024_3,V10025_3,V10026_3,V10027_3,V10028_3,V10029_3,V10030_3,V10031_3";
         // List<String> list = Splitter.on(",").splitToList(str);
         // for (String s : list) {
-        String s = "V10032_3";
+        String str = "32_TLNMOihSUbaT_O7Wm_eSxmIPONqQXWUZwl2McfZDpCqPXI3Nt40So58i2fEB6XyUZ8x_qP-7qymZnqWemXj3UqF0MLkRjcW4Po7zxKixdTQrUjGcTKgBhuYivUHzB_VGSmUpsRSCKQvZ8oNaQNOfACATQR";
+            String s = "V100322_32";
             String filename = Splitter.on("_").splitToList(s).get(0);
-            String page = String.format("page/activty/markteActive/middleware/middleware?scene=%s", s);
-            WxCode.of("32_TYxEZbQIO1bCWjaZgvktWNk9z-sIpak2X0q8RGsMISDwecEUqraYDJzwi8Y_agapidmQa9bZazQ_sie5NulcoqSiNsDValMtjA0aTNuZFq4AxYQYgZ3zQ4yqC4UTKcKqhiZo5nXbuUm86XydFQMiAHAPAW")
+            // String page = String.format("page/activty/markteActive/middleware/middleware?scene=%s", s);
+            WxCode.of("32_3VuHKQ1GYup-W6Z5o9Z9x6AJ8KNrHS1_if9V938KHs8I1Nr6bQ3SuqhhsdLPMstzoLMmNL7xaklw8bYlhj-2g9u1EPJb6Zg8VjL-RCw67mNkT3ELvS_QcWQi1acWswDKTI1PGat_0cHJf0orPDFfAIAGUW")
                     // .path("page/services/realGoodsServe/productDetails/productDetails?goodsId=161")
-                    .path(page)
+                    .page("page/pageant/description/description")
                     .width(660)
+                    .scene("a=a")
                     .getWxCode(filename);
         // }
 

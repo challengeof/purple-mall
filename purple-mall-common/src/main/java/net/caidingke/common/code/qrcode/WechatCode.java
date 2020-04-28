@@ -46,15 +46,15 @@ public class WechatCode {
         this.accessToken = accessToken;
     }
 
-    public static String getAccessToken() {
-        String url = String.format(TOKEN, "wx17f444ee74bc113d", "803ba684c3feeea06544432d606bc067");
-        HttpResponse send = HttpRequest.get(url).send().charset("utf-8");
-        String body = send.body();
-        Map<Object, Object> result = JsonMapper.toMapWithType(body, Object.class, Object.class);
-        String accessToken = String.valueOf(result.get("access_token"));
-        System.out.println(accessToken);
-        return accessToken;
-    }
+    // public static String getAccessToken() {
+    //     String url = String.format(TOKEN, "wx17f444ee74bc113d", "803ba684c3feeea06544432d606bc067");
+    //     HttpResponse send = HttpRequest.get(url).send().charset("utf-8");
+    //     String body = send.body();
+    //     Map<Object, Object> result = JsonMapper.toMapWithType(body, Object.class, Object.class);
+    //     String accessToken = String.valueOf(result.get("access_token"));
+    //     System.out.println(accessToken);
+    //     return accessToken;
+    // }
 
     public String getTicket() throws IOException {
         String json = "{\"action_name\": \"QR_LIMIT_SCENE\", \"action_info\": {\"scene\": {\"scene_id\": 1902}}}";

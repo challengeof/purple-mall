@@ -133,4 +133,44 @@ public class QRCode {
                         .encode(content, BarcodeFormat.QR_CODE, width, height, hints);
         MatrixToImageWriter.writeToFile(bitMatrix, format, new File(path));
     }
+
+    public static class DoubleCheckLock{
+        private volatile DoubleCheckLock doubleCheckLock;
+        public String str;
+
+        public DoubleCheckLock getDoubleCheckLock() {
+            DoubleCheckLock localDoubleCheckLock = doubleCheckLock;
+            if (localDoubleCheckLock == null) {
+                synchronized (this) {
+                    localDoubleCheckLock = doubleCheckLock;
+                    if (localDoubleCheckLock == null) {
+                        doubleCheckLock = localDoubleCheckLock = new DoubleCheckLock();
+                    }
+                }
+            }
+            return localDoubleCheckLock;
+        }
+
+        public String getString() {
+            String localStr = str;
+            if (localStr == null) {
+                synchronized (this) {
+                    localStr = str;
+                    if (localStr == null) {
+                        localStr = "1";
+                    }
+                }
+            }
+            return localStr;
+        }
+    }
+
+    public static void main(String[] args) {
+        DoubleCheckLock doubleCheckLock = new DoubleCheckLock();
+        DoubleCheckLock d = doubleCheckLock.getDoubleCheckLock();
+
+        String str = doubleCheckLock.getString();
+        doubleCheckLock.str = null;
+        doubleCheckLock.getString();
+    }
 }
