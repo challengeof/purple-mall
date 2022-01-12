@@ -23,7 +23,7 @@
         <querybean-generator.version>11.42.1</querybean-generator.version>
         <ebean-querybean.version>11.42.1</ebean-querybean.version>
         <swagger-ui.version>2.6.1</swagger-ui.version>
-        <dubbo.version>2.7.3</dubbo.version>
+        <dubbo.version>2.7.15</dubbo.version>
         <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
         <nacos.version>1.1.1</nacos.version>
     </properties>
